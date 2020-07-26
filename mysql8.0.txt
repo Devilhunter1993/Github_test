@@ -1,0 +1,481 @@
+Xshell 6 (Build 0197)
+Copyright (c) 2002 NetSarang Computer, Inc. All rights reserved.
+
+Type `help' to learn how to use Xshell prompt.
+[I:\~]$ 
+
+Connecting to 192.168.50.125:22...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+Last login: Wed Jul 22 21:08:38 2020
+[jinbozhao@vm ~]$ pwd
+/home/jinbozhao
+[jinbozhao@vm ~]$ cd /user
+[jinbozhao@vm user]$ ls -al
+总用量 0
+drwxr-xr-x.  3 jinbozhao jinbozhao  19 6月  22 21:45 .
+dr-xr-xr-x. 20 root      root      262 5月  31 10:32 ..
+drwxr-xr-x.  3 jinbozhao jinbozhao 112 5月  31 11:19 local
+
+[jinbozhao@vm user]$ mkdir /user/local80
+[jinbozhao@vm user]$ mkdir /data/3380
+[jinbozhao@vm user]$ mkdir /binlog/3380
+
+[jinbozhao@vm user]$ cd /binlog
+[jinbozhao@vm binlog]$ cd /user/local80
+[jinbozhao@vm local80]$ ls
+mysql-8.0.21-linux-glibc2.12-x86_64.tar.xz
+[jinbozhao@vm local80]$ xz -d mysql-8.0.21-linux-glibc2.12-x86_64.tar.xz 
+[jinbozhao@vm local80]$ tar -xf mysql-8.0.21-linux-glibc2.12-x86_64.tar 
+[jinbozhao@vm local80]$ ln -s mysql-8.0.21-linux-glibc2.12-x86_64 mysql80
+[jinbozhao@vm local80]$ mysql -V
+mysql  Ver 14.14 Distrib 5.7.28, for linux-glibc2.12 (x86_64) using  EditLine wrapper
+
+[jinbozhao@vm local80]$ mysql -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.28 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ^DBye
+
+[jinbozhao@vm local80]$ mysqld -V
+mysqld  Ver 5.7.28 for linux-glibc2.12 on x86_64 (MySQL Community Server (GPL))
+[jinbozhao@vm local80]$ vim /etc/my.cnf
+[jinbozhao@vm local80]$ vim /etc.profile
+[jinbozhao@vm local80]$ vim /etc/profile
+[jinbozhao@vm local80]$ mysql -V
+mysql  Ver 14.14 Distrib 5.7.28, for linux-glibc2.12 (x86_64) using  EditLine wrapper
+[jinbozhao@vm local80]$ su root
+密码：
+[root@vm local80]# vim /etc/profile
+[root@vm local80]# source /etc/profile
+[root@vm local80]# mysql -V
+mysql  Ver 14.14 Distrib 5.7.28, for linux-glibc2.12 (x86_64) using  EditLine wrapper
+[root@vm local80]# vim /etc/profile
+[root@vm local80]# which mysql
+/user/local/mysql/bin/mysql
+[root@vm local80]# source /etc/profile
+[root@vm local80]# 
+[root@vm local80]# mysql -V
+mysql  Ver 14.14 Distrib 5.7.28, for linux-glibc2.12 (x86_64) using  EditLine wrapper
+[root@vm local80]# mkdir /data/3380/data
+[root@vm local80]# 
+
+#***************************************************************************************************************************************
+
+Xshell 6 (Build 0197)
+Copyright (c) 2002 NetSarang Computer, Inc. All rights reserved.
+
+Type `help' to learn how to use Xshell prompt.
+[I:\~]$ 
+
+Connecting to 192.168.50.125:22...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+Last login: Sat Jul 25 15:53:44 2020 from 192.168.50.50
+[jinbozhao@vm ~]$ mysql -V
+bash: mysql: 未找到命令...
+[jinbozhao@vm ~]$ mv /etc/my.cnf /etc/my.cnf.bak
+mv: 无法将"/etc/my.cnf" 移动至"/etc/my.cnf.bak": 权限不够
+[jinbozhao@vm ~]$ su root
+密码：
+[root@vm jinbozhao]# mv /etc/my.cnf /etc/my.cnf.bak
+[root@vm jinbozhao]# cat > /data/3307/my.cnf <<EOF
+> [mysqld]
+> basedir=/app/mysql
+> datadir=/data/3307/data
+> socket=/data/3307/mysql.sock
+> log_error=/data/3307/mysql.log
+> port=3307
+> server_id=7
+> log_bin=/data/3307/mysql-bin
+> ^C
+[root@vm jinbozhao]# ^C
+[root@vm jinbozhao]# ^C
+[root@vm jinbozhao]# cat /user/local80/my.cnf <<EOF
+> [mysqld]
+> > basedir=/app/mysql
+> > datadir=/data/3307/data
+> > socket=/data/3307/mysql.sock
+> > log_error=/data/3307/mysql.log
+> > port=3307
+> > server_id=7
+> cat /user/local80/my.cnf <<EOF
+        
+> ^C
+[root@vm jinbozhao]# cat /user/local80/my.cnf <<EOF
+[mysqld]
+> basedir=/app/mysql
+> datadir=/data/3307/data
+> socket=/data/3307/mysql.sock
+> log_error=/data/3307/mysql.log
+> port=3307
+> server_id=7
+cat /user/local80/my.cnf <<EOF
+
+^C
+[root@vm jinbozhao]# vim /user/local80/my.cnf
+[root@vm jinbozhao]# /user/local80/mysql80/mysqld --initialize-insecure --user=jinbozhao --basedir=/user/local80/muysql80 --datadir=/data/3380/data
+bash: /user/local80/mysql80/mysqld: 没有那个文件或目录
+[root@vm jinbozhao]# /user/local80/mysql80/bin/mysqld --initialize-insecure --user=jinbozhao --basedir=/user/local80/muysql80 --datadir=/data/3380/data
+2020-07-25T08:41:14.899174Z 0 [System] [MY-013169] [Server] /user/local80/mysql80/bin/mysqld (mysqld 8.0.21) initializing of server in progress as process 3733
+2020-07-25T08:41:14.899210Z 0 [ERROR] [MY-010338] [Server] Can't find error-message file '/user/local80/muysql80/share/errmsg.sys'. Check error-message file location and 'lc-messages-dir' configuration directive.
+2020-07-25T08:41:14.911537Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2020-07-25T08:41:15.577144Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2020-07-25T08:41:16.419614Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+[root@vm jinbozhao]# /user/local80/mysql80/bin/mysqld --initialize-insecure --user=jinbozhao --basedir=/user/local80/mysql80 --datadir=/data/3380/data
+2020-07-25T08:42:20.719856Z 0 [System] [MY-013169] [Server] /user/local80/mysql80/bin/mysqld (mysqld 8.0.21) initializing of server in progress as process 3786
+2020-07-25T08:42:20.723113Z 0 [ERROR] [MY-010457] [Server] --initialize specified but the data directory has files in it. Aborting.
+2020-07-25T08:42:20.723123Z 0 [ERROR] [MY-013236] [Server] The designated data directory /data/3380/data/ is unusable. You can remove all files that the server added to it.
+2020-07-25T08:42:20.723177Z 0 [ERROR] [MY-010119] [Server] Aborting
+2020-07-25T08:42:20.723378Z 0 [System] [MY-010910] [Server] /user/local80/mysql80/bin/mysqld: Shutdown complete (mysqld 8.0.21)  MySQL Community Server - GPL.
+[root@vm jinbozhao]# vim /etc/systmd/system/mysql80.service
+[root@vm jinbozhao]# vim /etc/systemd/system/mysql80.service
+[root@vm jinbozhao]# systemctl mysql80 start
+Unknown operation 'mysql80'.
+[root@vm jinbozhao]# systemctl start mysql80
+
+[root@vm jinbozhao]# netstat -tunpl
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      2355/dnsmasq        
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1558/sshd           
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      1556/cupsd          
+tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      2397/sshd: jinbozha 
+tcp        0      0 127.0.0.1:6011          0.0.0.0:*               LISTEN      3305/sshd: jinbozha 
+tcp        0      0 127.0.0.1:6012          0.0.0.0:*               LISTEN      3598/sshd: jinbozha 
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1147/rpcbind        
+tcp6       0      0 :::3380                 :::*                    LISTEN      4059/mysqld         
+tcp6       0      0 :::22                   :::*                    LISTEN      1558/sshd           
+tcp6       0      0 ::1:631                 :::*                    LISTEN      1556/cupsd          
+tcp6       0      0 ::1:6010                :::*                    LISTEN      2397/sshd: jinbozha 
+tcp6       0      0 ::1:6011                :::*                    LISTEN      3305/sshd: jinbozha 
+tcp6       0      0 ::1:6012                :::*                    LISTEN      3598/sshd: jinbozha 
+tcp6       0      0 :::33060                :::*                    LISTEN      4059/mysqld         
+tcp6       0      0 :::3306                 :::*                    LISTEN      1852/mysqld         
+tcp6       0      0 :::111                  :::*                    LISTEN      1147/rpcbind        
+udp        0      0 127.0.0.1:323           0.0.0.0:*                           1165/chronyd        
+udp        0      0 0.0.0.0:892             0.0.0.0:*                           1147/rpcbind        
+udp        0      0 192.168.122.1:53        0.0.0.0:*                           2355/dnsmasq        
+udp        0      0 0.0.0.0:38968           0.0.0.0:*                           1143/avahi-daemon:  
+udp        0      0 0.0.0.0:67              0.0.0.0:*                           2355/dnsmasq        
+udp        0      0 0.0.0.0:111             0.0.0.0:*                           1147/rpcbind        
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           1143/avahi-daemon:  
+udp6       0      0 ::1:323                 :::*                                1165/chronyd        
+udp6       0      0 :::892                  :::*                                1147/rpcbind        
+udp6       0      0 :::111                  :::*                                1147/rpcbind        
+[root@vm jinbozhao]# mv /etc/my.cnf.bak /etc/my.cnf
+[root@vm jinbozhao]# vim /etc/profile
+[root@vm jinbozhao]# source /etc/profile
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create user jinbo@'local' identified by '123';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all on *.* to jinbo@'local' with grant option;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select @@sql_mode
+    -> ;
++-----------------------------------------------------------------------------------------------------------------------+
+| @@sql_mode                                                                                                            |
++-----------------------------------------------------------------------------------------------------------------------+
+| ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION |
++-----------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show charset;
++----------+---------------------------------+---------------------+--------+
+| Charset  | Description                     | Default collation   | Maxlen |
++----------+---------------------------------+---------------------+--------+
+| armscii8 | ARMSCII-8 Armenian              | armscii8_general_ci |      1 |
+| ascii    | US ASCII                        | ascii_general_ci    |      1 |
+| big5     | Big5 Traditional Chinese        | big5_chinese_ci     |      2 |
+| binary   | Binary pseudo charset           | binary              |      1 |
+| cp1250   | Windows Central European        | cp1250_general_ci   |      1 |
+| cp1251   | Windows Cyrillic                | cp1251_general_ci   |      1 |
+| cp1256   | Windows Arabic                  | cp1256_general_ci   |      1 |
+| cp1257   | Windows Baltic                  | cp1257_general_ci   |      1 |
+| cp850    | DOS West European               | cp850_general_ci    |      1 |
+| cp852    | DOS Central European            | cp852_general_ci    |      1 |
+| cp866    | DOS Russian                     | cp866_general_ci    |      1 |
+| cp932    | SJIS for Windows Japanese       | cp932_japanese_ci   |      2 |
+| dec8     | DEC West European               | dec8_swedish_ci     |      1 |
+| eucjpms  | UJIS for Windows Japanese       | eucjpms_japanese_ci |      3 |
+| euckr    | EUC-KR Korean                   | euckr_korean_ci     |      2 |
+| gb18030  | China National Standard GB18030 | gb18030_chinese_ci  |      4 |
+| gb2312   | GB2312 Simplified Chinese       | gb2312_chinese_ci   |      2 |
+| gbk      | GBK Simplified Chinese          | gbk_chinese_ci      |      2 |
+| geostd8  | GEOSTD8 Georgian                | geostd8_general_ci  |      1 |
+| greek    | ISO 8859-7 Greek                | greek_general_ci    |      1 |
+| hebrew   | ISO 8859-8 Hebrew               | hebrew_general_ci   |      1 |
+| hp8      | HP West European                | hp8_english_ci      |      1 |
+| keybcs2  | DOS Kamenicky Czech-Slovak      | keybcs2_general_ci  |      1 |
+| koi8r    | KOI8-R Relcom Russian           | koi8r_general_ci    |      1 |
+| koi8u    | KOI8-U Ukrainian                | koi8u_general_ci    |      1 |
+| latin1   | cp1252 West European            | latin1_swedish_ci   |      1 |
+| latin2   | ISO 8859-2 Central European     | latin2_general_ci   |      1 |
+| latin5   | ISO 8859-9 Turkish              | latin5_turkish_ci   |      1 |
+| latin7   | ISO 8859-13 Baltic              | latin7_general_ci   |      1 |
+| macce    | Mac Central European            | macce_general_ci    |      1 |
+| macroman | Mac West European               | macroman_general_ci |      1 |
+| sjis     | Shift-JIS Japanese              | sjis_japanese_ci    |      2 |
+| swe7     | 7bit Swedish                    | swe7_swedish_ci     |      1 |
+| tis620   | TIS620 Thai                     | tis620_thai_ci      |      1 |
+| ucs2     | UCS-2 Unicode                   | ucs2_general_ci     |      2 |
+| ujis     | EUC-JP Japanese                 | ujis_japanese_ci    |      3 |
+| utf16    | UTF-16 Unicode                  | utf16_general_ci    |      4 |
+| utf16le  | UTF-16LE Unicode                | utf16le_general_ci  |      4 |
+| utf32    | UTF-32 Unicode                  | utf32_general_ci    |      4 |
+| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |
+| utf8mb4  | UTF-8 Unicode                   | utf8mb4_0900_ai_ci  |      4 |
++----------+---------------------------------+---------------------+--------+
+41 rows in set (0.00 sec)
+
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.28 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -u jinbo -P 3380 -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'jinbo'@'localhost' (using password: YES)
+[root@vm jinbozhao]# mysql -u jinbo -P 3380 -p123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1045 (28000): Access denied for user 'jinbo'@'localhost' (using password: YES)
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> alter jinbo@'local' identified by '123';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'jinbo@'local' identified by '123'' at line 1
+mysql> drop jinbo@'local';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'jinbo@'local'' at line 1
+mysql> drop user jinbo@'local';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user jinbo@'localhost' identified by '123';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select host,user.authenticaiton_string from user;
+ERROR 1054 (42S22): Unknown column 'user.authenticaiton_string' in 'field list'
+mysql> select host,user,authenticaiton_string from user;
+ERROR 1054 (42S22): Unknown column 'authenticaiton_string' in 'field list'
+mysql> select host,user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| localhost | jinbo            |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
++-----------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -uroot -P 3380 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.7.28 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -u jinbo -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create user mysql80@'192.168.50.50' identified by 'mysql80';
+ERROR 1227 (42000): Access denied; you need (at least one of) the CREATE USER privilege(s) for this operation
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create user mysql80@'192.168.50.50' identified by 'mysql80';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all on *.* to mysql80@'192.168.50.50' with grant option;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ^DBye
+[root@vm jinbozhao]# which iptable
+/usr/bin/which: no iptable in (/user/local/mysql/bin:/root/perl5/bin:/usr/lib64/qt-3.3/bin:/home/jinbozhao/perl5/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/jinbozhao/.local/bin:/home/jinbozhao/bin)
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> grant all on *.* to mysql80@'192.168.50.50' with grant option;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ^DBye
+[root@vm jinbozhao]# /etc/sysconfig/iptables
+bash: /etc/sysconfig/iptables: 权限不够
+[root@vm jinbozhao]# vim /etc/sysconifg/iptables
+[root@vm jinbozhao]# vim /etc/sysconfig/iptables
+[root@vm jinbozhao]# source /etc/sys
+sysconfig/          sysctl.d/           system-release      
+sysctl.conf         systemd/            system-release-cpe  
+
+[root@vm jinbozhao]# service iptables restart
+Redirecting to /bin/systemctl restart iptables.service
+[root@vm jinbozhao]# systemctl restart iptables
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select user,host,plugin from user;
++------------------+---------------+-----------------------+
+| user             | host          | plugin                |
++------------------+---------------+-----------------------+
+| mysql80          | 192.168.50.50 | caching_sha2_password |
+| jinbo            | localhost     | caching_sha2_password |
+| mysql.infoschema | localhost     | caching_sha2_password |
+| mysql.session    | localhost     | caching_sha2_password |
+| mysql.sys        | localhost     | caching_sha2_password |
+| root             | localhost     | caching_sha2_password |
++------------------+---------------+-----------------------+
+6 rows in set (0.00 sec)
+
+mysql> alter user mysql80@'192.168.50.50' identified with mysql_native_password by 'mysql80';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select user,host,plugin from user;
++------------------+---------------+-----------------------+
+| user             | host          | plugin                |
++------------------+---------------+-----------------------+
+| mysql80          | 192.168.50.50 | mysql_native_password |
+| jinbo            | localhost     | caching_sha2_password |
+| mysql.infoschema | localhost     | caching_sha2_password |
+| mysql.session    | localhost     | caching_sha2_password |
+| mysql.sys        | localhost     | caching_sha2_password |
+| root             | localhost     | caching_sha2_password |
++------------------+---------------+-----------------------+
+6 rows in set (0.00 sec)
+
+mysql> ^DBye
+[root@vm jinbozhao]# mysql -S /data/3380/mysql.sock -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 29
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ^DBye
+[root@vm jinbozhao]# 
