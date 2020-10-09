@@ -1,0 +1,186 @@
+
+******************************************************************************************
+select
+region as 地区,
+PaymentTime as 月份,
+Sales as 销售名称,
+Dense_rank() over (partition by region,PaymentTime order by sum_sales desc) as r
+from (
+
+
+select 
+date_format(t1.PaymentTime,'%Y-%m') as PaymentTime,
+t1.Sales,
+t1.region,
+sum(t2.UnitPrice*sum((ifnull(t1.Amount,0)) as sum_sales
+from 
+tbPayments as t1 inner join tbProducts as t2
+on t1.ProductID=t2.SID
+where t1.PaymentState="Paid"
+gourp by t1.Sales,t1.region,data_format(t1.PaymentTime,'%Y-%m')
+
+
+
+
+
+
+)
+having r=1
+*********************************************************************************************
+
+create table tbPayments
+(
+SID 		varchar(10) 	not null 	primary key,
+PaymentTime datetime 		not null,
+productID 	varchar(10)) 	not null,
+Amount		int				not null,
+PaymentState enum('Paid','Waiting') not null,
+Sales		varchar(10)				not null,
+region		enum('华东','华南') 		not null
+)engine=innodb charset=utf-8mb4;
+
+create table tbProducts 
+(
+SID 		varchar(10) 	not null 	primary key,
+ProductName varchar(10)     not null,
+Unitprice	int				not null,
+Status		enum('Active','Inactive') not bull
+)engine=innodb charset=utf-8mb4;
+
+insert into tbProducts values 
+('P-1','商品A'，10，'Active'),
+('P-2','商品B'，20，'Active'),
+('P-3','商品C'，30，'Inactive');
+
+insert into tbPayments values 
+('S-1','2019-01-02 12:20:30','P-1',30,'Paid','张三','华南'),
+('S-2','2019-02-02 12:20:30','P-2',60,'Paid','张三','华南'),
+('S-3','2019-03-02 12:20:30','P-3',90,'Paid','李四','华东'),
+('S-4','2019-03-02 12:20:30','P-1',100,'Paid','张三','华南'),
+('S-5','2019-04-02 12:20:30','P-2',200,'Paid','张三','华南'),
+('S-6','2019-05-02 12:20:30','P-1',3000,'Paid','李四','华东');
+
+select  
+t2.ProductName as 产品名称, 
+sum(t2.UnitPrice*t1.Amount) as YTD, 
+sum(case when MONTH(t1.PaymentTime)=1 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "1月" ,
+sum(case when MONTH(t1.PaymentTime)=2 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "2月" ,
+sum(case when MONTH(t1.PaymentTime)=3 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "3月" ,
+sum(case when MONTH(t1.PaymentTime)=4 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "4月" ,
+sum(case when MONTH(t1.PaymentTime)=5 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "5月" ,
+sum(case when MONTH(t1.PaymentTime)=6 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "6月" ,
+sum(case when MONTH(t1.PaymentTime)=7 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "7月" ,
+sum(case when MONTH(t1.PaymentTime)=8 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "8月" ,
+sum(case when MONTH(t1.PaymentTime)=9 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "9月" ,
+sum(case when MONTH(t1.PaymentTime)=10 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "10月" ,
+sum(case when MONTH(t1.PaymentTime)=11 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "11月" ,
+sum(case when MONTH(t1.PaymentTime)=12 then t2.UnitPrice*ifnull(t1.Amount,0) end) as "12月" 
+from 
+tbPayments as t1 inner join tbProducts as t2 
+on 
+t1.ProductID=t2.SID 
+where t1.PaymentState='Paid' and t2.Status='Active' 
+group by t2.ProductName;
+
+
+***************************************************************************************
+
+select *,
+date_format(t1.PaymentTime,"%Y-%m") as PaymentTime 
+from 
+tbPayments as t1 inner join tbProducts as t2 
+on t1.ProductID = t2.SID 
+where 
+t1.Paymentstate="Paid" and t2.Status="Active";
+
+----------------------------------------------------------------------------------------
+
+
+sum(UnitPrice*ifnull(Amount,0)) as sum_sales
+
+select
+t1.Sales,
+t1.region,
+t3.PaymentTime_1 
+
+from
+(
+select *,
+date_format(t1.PaymentTime,"%Y-%m") as PaymentTime_1 
+from 
+tbPayments as t1 inner join tbProducts as t2 
+on t1.ProductID = t2.SID 
+where 
+t1.Paymentstate="Paid" and t2.Status="Active"
+)as t3
+group by t1.Sales,t1.region,t3.PaymentTime;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select tb.*,   
+dense_rank() over (partition by tb.region,tb.PaymentTime order by sum_sales desc) as r   
+from(
+select
+t1.region,
+date_format(t1.PaymentTime,"%Y-%m") as PaymentTime,
+t1.Sales,
+sum(t2.UnitPrice*ifnull(t1.Amount,0)) as sum_sales 
+from 
+tbPayments as t1 inner join tbProducts as t2 
+on t1.ProductID = t2.SID 
+where 
+t1.Paymentstate="Paid" and t2.Status="Active"
+group by t1.region,t1.Sales,date_format(t1.PaymentTime,"%Y-%m")) as tb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select tb.* , 
+    dense_rank() over (partition by tb.region,tb.PaymentTime order by sum_sales desc) as r
+    from(
+    select
+    t1.region,
+    date_format(t1.PaymentTime,"%Y-%m") as PaymentTime,
+    t1.Sales,
+    sum(t2.UnitPrice*ifnull(t1.Amount,0)) as sum_sales 
+    from 
+    tbPayments as t1 inner join tbProducts as t2 
+    on t1.ProductID = t2.SID 
+    where 
+    t1.Paymentstate="Paid" and t2.Status="Active"
+    group by t1.region,t1.Sales,date_format(t1.PaymentTime,"%Y-%m")) as tb
+    Having r=1;
